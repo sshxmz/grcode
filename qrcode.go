@@ -8,7 +8,7 @@ import (
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 )
