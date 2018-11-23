@@ -7,7 +7,7 @@ import (
 	_ "image/png"
 	"log"
 
-	"github.com/clsung/grcode"
+	"github.com/sshsmz/grcode"
 )
 
 //go build -ldflags "-linkmode external -extldflags -static"
