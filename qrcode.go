@@ -56,3 +56,24 @@ func GetDataFromImage(image image.Image) (results []string, err error) {
 	}
 	return results, nil
 }
+
+//GetDataFromReader read qrcode directly from io.Reader
+func GetDataFromReader(reader io.Reader) (results []string, err error) {
+	m, _, err := image.Decode(reader)
+	if err != nil {
+		log.Printf("decode file error: %v", err)
+		return results, err
+	}
+	scanner := NewScanner()
+	defer scanner.Close()
+	scanner.SetConfig(0, C.ZBAR_CFG_ENABLE, 1)
+	zImg := NewZbarImage(m)
+	defer zImg.Close()
+	scanner.Scan(zImg)
+	symbol := zImg.GetSymbol()
+	for ; symbol != nil; symbol = symbol.Next() {
+		results = append(results, symbol.Data())
+	}
+	return results, nil
+}
+
